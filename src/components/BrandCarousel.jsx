@@ -1,23 +1,69 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { marcasAPI } from '../services/api';
 import './BrandCarousel.css';
 
 const BrandCarousel = () => {
-  const brands = [
-    { name: 'NORTH STAR', image: 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&q=80' },
-    { name: 'POWER', image: 'https://images.unsplash.com/photo-1539185441755-769473a23570?w=400&q=80' },
-    { name: 'WEINBRENNER', image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&q=80' }
-  ];
+  const navigate = useNavigate();
+  const [marcas, setMarcas] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchMarcas();
+  }, []);
+
+  const fetchMarcas = async () => {
+    try {
+      const response = await marcasAPI.getAll();
+      console.log('Marcas recibidas:', response.data);
+      // Filtrar solo marcas activas
+      const marcasActivas = response.data.filter(marca => marca.activo);
+      console.log('Marcas activas:', marcasActivas);
+      setMarcas(marcasActivas);
+    } catch (error) {
+      console.error('Error al cargar marcas:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleBrandClick = (marcaId) => {
+    navigate(`/productos/marca/${marcaId}`);
+  };
+
+  if (loading) {
+    return (
+      <section className="brand-carousel py-5">
+        <div className="container-fluid px-4">
+          <div className="text-center">Cargando marcas...</div>
+        </div>
+      </section>
+    );
+  }
+
+  if (marcas.length === 0) {
+    return null;
+  }
 
   return (
     <section className="brand-carousel py-5">
       <div className="container-fluid px-4">
-        <div className="row g-0">
-          {brands.map((brand, index) => (
-            <div className="col-md-4" key={index}>
-              <div className="brand-card">
-                <img src={brand.image} alt={brand.name} className="brand-image" />
+        <h2 className="section-title text-center mb-5">Marcas</h2>
+        <div className="row g-3">
+          {marcas.map((marca) => (
+            <div className="col-lg-3 col-md-4 col-sm-6" key={marca.id}>
+              <div 
+                className="brand-card"
+                onClick={() => handleBrandClick(marca.id)}
+                style={{ cursor: 'pointer' }}
+              >
+                <img 
+                  src={marca.logoUrl} 
+                  alt={marca.nombre} 
+                  className="brand-image" 
+                />
                 <div className="brand-overlay">
-                  <h3 className="brand-name">{brand.name}</h3>
+                  <h3 className="brand-name">{marca.nombre.toUpperCase()}</h3>
                 </div>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { productosAPI } from '../services/api';
+import ProductModal from '../components/ProductModal';
 import './Products.css';
 
 const Products = () => {
@@ -8,6 +9,7 @@ const Products = () => {
   const navigate = useNavigate();
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedProductId, setSelectedProductId] = useState(null);
 
   useEffect(() => {
     fetchProductos();
@@ -36,7 +38,15 @@ const Products = () => {
   };
 
   const handleProductClick = (id) => {
-    navigate(`/producto/${id}`);
+    console.log('=== PRODUCTO CLICKEADO ===');
+    console.log('ID del producto:', id);
+    setSelectedProductId(id);
+    console.log('selectedProductId actualizado a:', id);
+  };
+
+  const closeModal = () => {
+    console.log('Cerrando modal');
+    setSelectedProductId(null);
   };
 
   if (loading) {
@@ -70,9 +80,9 @@ const Products = () => {
                   onClick={() => handleProductClick(producto.id)}
                 >
                   <div className="product-image">
-                    {producto.imagenPrincipal ? (
+                    {producto.urlImg ? (
                       <img
-                        src={producto.imagenPrincipal}
+                        src={producto.urlImg}
                         alt={producto.nombre}
                       />
                     ) : (
@@ -95,6 +105,16 @@ const Products = () => {
           </div>
         )}
       </div>
+
+      {selectedProductId && (
+        <>
+          {console.log('Renderizando ProductModal con productId:', selectedProductId)}
+          <ProductModal 
+            productId={selectedProductId} 
+            onClose={closeModal}
+          />
+        </>
+      )}
     </div>
   );
 };

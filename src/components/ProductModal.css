@@ -1,0 +1,268 @@
+.product-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.product-modal {
+  background: white;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s;
+}
+
+.modal-close:hover {
+  background: #f8f9fa;
+  transform: rotate(90deg);
+}
+
+.modal-loading {
+  padding: 60px;
+  text-align: center;
+}
+
+.modal-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 30px;
+}
+
+.modal-image-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  min-height: 400px;
+}
+
+.modal-product-image {
+  max-width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.modal-no-image {
+  color: #999;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.modal-info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-product-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.modal-product-price {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 15px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.price-label {
+  font-size: 1rem;
+  color: #666;
+}
+
+.price-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #e74c3c;
+}
+
+.modal-product-description h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.modal-product-description p {
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.modal-product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.detail-item {
+  display: flex;
+  gap: 10px;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #333;
+  min-width: 80px;
+}
+
+.detail-value {
+  color: #666;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.modal-actions .btn {
+  padding: 12px 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+}
+
+.btn-add-cart {
+  background: #007bff;
+  border-color: #007bff;
+}
+
+.btn-add-cart:hover {
+  background: #0056b3;
+  border-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.btn-wishlist {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.btn-wishlist:hover:not(:disabled) {
+  background: #dc3545;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-wishlist.active {
+  background: #dc3545;
+  color: white;
+  border-color: #dc3545;
+  cursor: not-allowed;
+}
+
+.btn-view-details {
+  border-color: #6c757d;
+  color: #6c757d;
+}
+
+.btn-view-details:hover {
+  background: #6c757d;
+  color: white;
+  border-color: #6c757d;
+  transform: translateY(-2px);
+}
+
+.modal-error {
+  padding: 60px;
+  text-align: center;
+  color: #666;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal-content {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .modal-image-section {
+    min-height: 300px;
+  }
+
+  .modal-product-title {
+    font-size: 1.5rem;
+  }
+
+  .price-value {
+    font-size: 1.5rem;
+  }
+
+  .modal-actions {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding: 15px 0;
+    margin: 0 -20px;
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+  }
+}

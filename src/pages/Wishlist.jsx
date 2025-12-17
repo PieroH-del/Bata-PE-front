@@ -21,7 +21,7 @@ const Wishlist = () => {
       nombre: product.nombre,
       precio: product.precioRegular,
       cantidad: 1,
-      imagen: product.imagenPrincipal
+      imagen: product.urlImg
     });
   };
 
@@ -92,8 +92,8 @@ const Wishlist = () => {
                   onClick={() => handleProductClick(product.id)}
                   style={{ cursor: 'pointer' }}
                 >
-                  {product.imagenPrincipal ? (
-                    <img src={product.imagenPrincipal} alt={product.nombre} />
+                  {product.urlImg ? (
+                    <img src={product.urlImg} alt={product.nombre} />
                   ) : (
                     <div className="no-image">Sin imagen</div>
                   )}

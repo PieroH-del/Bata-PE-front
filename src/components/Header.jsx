@@ -278,13 +278,13 @@ const Header = () => {
                     >
                       <div className="mega-menu-product-image">
                         <img 
-                          src={producto.imagenPrincipal} 
+                          src={producto.urlImg} 
                           alt={producto.nombre}
                         />
                       </div>
                       <div className="mega-menu-product-info">
                         <p className="mega-menu-product-name">{producto.nombre}</p>
-                        <p className="mega-menu-product-price">S/ {producto.precioBase?.toFixed(2)}</p>
+                        <p className="mega-menu-product-price">S/ {producto.precioRegular?.toFixed(2)}</p>
                       </div>
                     </Link>
                   </div>

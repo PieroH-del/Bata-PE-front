@@ -35,6 +35,8 @@ export const productosAPI = {
   getAll: () => api.get('/productos'),
   getById: (id) => api.get(`/productos/${id}`),
   getByCategoria: (categoriaId) => api.get(`/productos/categoria/${categoriaId}`),
+  getByGenero: (genero) => api.get(`/productos/genero/${genero}`),
+  getByMarca: (marcaId) => api.get(`/productos/marca/${marcaId}`),
   create: (data) => api.post('/productos', data), // Admin
 };
 

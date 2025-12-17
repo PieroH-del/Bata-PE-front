@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
       const newUser = response.data;
       setUser(newUser);
       localStorage.setItem('user', JSON.stringify(newUser));
-      return { success: true, data: newUser };
+      return { success: true, user: newUser };
     } catch (error) {
       console.error('Error al registrar:', error);
       return { 
@@ -61,12 +61,19 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('user');
   };
 
+  const updateUser = (updatedData) => {
+    const updatedUser = { ...user, ...updatedData };
+    setUser(updatedUser);
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+  };
+
   const value = {
     user,
     loading,
     login,
     register,
     logout,
+    updateUser,
     isAuthenticated: !!user,
   };
 

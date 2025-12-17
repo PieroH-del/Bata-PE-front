@@ -3,6 +3,40 @@
   padding: 2rem 0;
 }
 
+/* Wishlist Button */
+.btn-wishlist {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+  background: #fff;
+  color: #666;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+
+.btn-wishlist:hover {
+  border-color: #e30613;
+  color: #e30613;
+  transform: scale(1.1);
+}
+
+.btn-wishlist.active {
+  border-color: #e30613;
+  background: #e30613;
+  color: #fff;
+}
+
+.btn-wishlist.active:hover {
+  background: #c10511;
+  border-color: #c10511;
+}
+
 .product-gallery {
   position: sticky;
   top: 100px;

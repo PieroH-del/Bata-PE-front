@@ -15,10 +15,6 @@ const CategorySection = () => {
         <h2 className="section-title text-center mb-5">Descubre</h2>
         
         <div className="category-scroll-container">
-          <button className="scroll-arrow scroll-arrow-left">
-            <i className="fas fa-chevron-left"></i>
-          </button>
-          
           <div className="category-scroll">
             {categories.map((category, index) => (
               <div className="category-item" key={index}>
@@ -31,10 +27,6 @@ const CategorySection = () => {
               </div>
             ))}
           </div>
-          
-          <button className="scroll-arrow scroll-arrow-right">
-            <i className="fas fa-chevron-right"></i>
-          </button>
         </div>
       </div>
     </section>

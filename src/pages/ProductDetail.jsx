@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { productosAPI, variantesAPI, imagenesAPI } from '../services/api';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+
   const [producto, setProducto] = useState(null);
   const [variantes, setVariantes] = useState([]);
   const [imagenes, setImagenes] = useState([]);
@@ -77,6 +79,24 @@ const ProductDetail = () => {
     }, 500);
   };
 
+  const handleToggleWishlist = () => {
+    if (isInWishlist(producto.id)) {
+      removeFromWishlist(producto.id);
+      setMensaje('Producto eliminado de favoritos');
+    } else {
+      const productoData = {
+        ...producto,
+        imagenPrincipal: imagenes[0]?.urlImagen || '',
+      };
+      addToWishlist(productoData);
+      setMensaje('¡Producto agregado a favoritos!');
+    }
+
+    setTimeout(() => {
+      setMensaje('');
+    }, 3000);
+  };
+
   if (loading) {
     return (
       <div className="product-detail-page">
@@ -140,8 +160,17 @@ const ProductDetail = () => {
           {/* Información del producto */}
           <div className="col-md-6">
             <div className="product-details">
-              <h1 className="product-title">{producto.nombre}</h1>
-              
+              <div className="d-flex justify-content-between align-items-start mb-3">
+                <h1 className="product-title">{producto.nombre}</h1>
+                <button
+                  className={`btn-wishlist ${isInWishlist(producto.id) ? 'active' : ''}`}
+                  onClick={handleToggleWishlist}
+                  title={isInWishlist(producto.id) ? 'Eliminar de favoritos' : 'Agregar a favoritos'}
+                >
+                  <i className={`${isInWishlist(producto.id) ? 'fas' : 'far'} fa-heart`}></i>
+                </button>
+              </div>
+
               <div className="product-meta">
                 <span className="genero-badge">{producto.genero}</span>
                 {producto.material && (

@@ -13,11 +13,6 @@ const PromotionalSection = () => {
               <div className="promo-overlay">
                 <span className="promo-badge">GRATI DAYS</span>
                 <h2 className="promo-title">MUJER HASTA 50%</h2>
-                <div className="promo-buttons">
-                  <button className="btn btn-promo">ZAPATILLAS</button>
-                  <button className="btn btn-promo">SANDALIAS</button>
-                </div>
-                <button className="btn btn-promo-secondary mt-3">VER TODO</button>
               </div>
             </div>
           </div>
@@ -29,11 +24,6 @@ const PromotionalSection = () => {
               <div className="promo-overlay">
                 <span className="promo-badge">GRATI DAYS</span>
                 <h2 className="promo-title">HOMBRE HASTA 50%</h2>
-                <div className="promo-buttons">
-                  <button className="btn btn-promo">ZAPATILLAS</button>
-                  <button className="btn btn-promo">CASUAL & VESTIR</button>
-                </div>
-                <button className="btn btn-promo-secondary mt-3">VER TODO</button>
               </div>
             </div>
           </div>
@@ -45,10 +35,6 @@ const PromotionalSection = () => {
               <div className="promo-overlay">
                 <span className="promo-badge">GRATI DAYS</span>
                 <h2 className="promo-title">INFANTIL HASTA 50%</h2>
-                <div className="promo-buttons">
-                  <button className="btn btn-promo">NIÑOS</button>
-                  <button className="btn btn-promo">NIÑAS</button>
-                </div>
               </div>
             </div>
           </div>

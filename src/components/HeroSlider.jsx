@@ -18,7 +18,6 @@ const HeroSlider = () => {
                 <div className="col-12 text-center">
                   
                   <h2 className="hero-title" style={{color: 'white'}}>REGALA MOVIMIENTO, REGALA POWER.</h2>
-                  <button className="btn btn-hero mt-3">COMPRA AHORA</button>
                 </div>
               </div>
             </div>
@@ -32,7 +31,6 @@ const HeroSlider = () => {
               <div className="row h-100 align-items-center">
                 <div className="col-12 text-center">
                   <h2 className="hero-title" style={{color: 'white'}}>Nueva Colección</h2>
-                  <button className="btn btn-hero mt-3">DESCUBRE MÁS</button>
                 </div>
               </div>
             </div>

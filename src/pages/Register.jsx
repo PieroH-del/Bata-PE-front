@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { direccionesAPI } from '../services/api';
 import './Register.css';
 
 const Register = () => {
@@ -43,13 +44,37 @@ const Register = () => {
 
     setLoading(true);
 
-    const { confirmPassword, ...registerData } = formData;
-    const result = await register(registerData);
+    try {
+      // Separar datos de usuario y dirección
+      const { confirmPassword: _, direccionCalle, ciudad, provincia, codigoPostal, pais, ...registerData } = formData;
 
-    if (result.success) {
-      navigate('/');
-    } else {
-      setError(result.error);
+      // Registrar usuario
+      const result = await register(registerData);
+
+      if (result.success && result.user) {
+        // Crear dirección para el usuario
+        try {
+          await direccionesAPI.create({
+            usuarioId: result.user.id,
+            direccionCalle,
+            ciudad,
+            provincia,
+            codigoPostal,
+            pais,
+            esPrincipal: true
+          });
+        } catch (dirError) {
+          console.error('Error al crear dirección:', dirError);
+          // Continuar aunque falle la creación de dirección
+        }
+
+        navigate('/');
+      } else {
+        setError(result.error);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setError('Error al crear la cuenta. Por favor intenta de nuevo.');
     }
 
     setLoading(false);
@@ -162,6 +187,92 @@ const Register = () => {
                       onChange={handleChange}
                       required
                       minLength="6"
+                    />
+                  </div>
+                </div>
+
+                <hr className="my-4" />
+                <h5 className="mb-3">Dirección de Envío</h5>
+
+                <div className="mb-3">
+                  <label htmlFor="direccionCalle" className="form-label">
+                    Dirección (Calle y Número) *
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="direccionCalle"
+                    name="direccionCalle"
+                    placeholder="Ej: Av. Larco 123, Dpto 301"
+                    value={formData.direccionCalle}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="ciudad" className="form-label">
+                      Ciudad/Distrito *
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="ciudad"
+                      name="ciudad"
+                      placeholder="Ej: Miraflores"
+                      value={formData.ciudad}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="provincia" className="form-label">
+                      Provincia/Departamento *
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="provincia"
+                      name="provincia"
+                      placeholder="Ej: Lima"
+                      value={formData.provincia}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="codigoPostal" className="form-label">
+                      Código Postal *
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="codigoPostal"
+                      name="codigoPostal"
+                      placeholder="Ej: 15074"
+                      value={formData.codigoPostal}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="pais" className="form-label">
+                      País *
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="pais"
+                      name="pais"
+                      value={formData.pais}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>

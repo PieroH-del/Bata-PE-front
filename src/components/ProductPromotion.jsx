@@ -13,10 +13,6 @@ const ProductPromotion = () => {
               <div className="promotion-overlay">
                 <span className="promotion-badge">REGALA ZAPATILLAS</span>
                 <h2 className="promotion-title">HASTA -60% OFF</h2>
-                <div className="promotion-buttons">
-                  <button className="btn btn-promotion">MUJER</button>
-                  <button className="btn btn-promotion">HOMBRE</button>
-                </div>
               </div>
             </div>
           </div>
@@ -28,10 +24,6 @@ const ProductPromotion = () => {
               <div className="promotion-overlay">
                 <span className="promotion-badge">REGALA SANDALIAS</span>
                 <h2 className="promotion-title">HASTA -50% OFF</h2>
-                <div className="promotion-buttons">
-                  <button className="btn btn-promotion">MUJER</button>
-                  <button className="btn btn-promotion">HOMBRE</button>
-                </div>
               </div>
             </div>
           </div>

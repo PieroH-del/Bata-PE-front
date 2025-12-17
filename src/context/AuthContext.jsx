@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import React, { createContext, useState, useContext } from 'react';
 import { authAPI } from '../services/api';
 
 const AuthContext = createContext();
@@ -12,17 +13,11 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Verificar si hay usuario guardado en localStorage
+  // Inicializar el estado del usuario desde localStorage usando lazy initialization
+  const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-    setLoading(false);
-  }, []);
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
   const login = async (email, password) => {
     try {
@@ -69,7 +64,6 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     user,
-    loading,
     login,
     register,
     logout,

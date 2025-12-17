@@ -55,8 +55,7 @@ const ProductModal = ({ productId, onClose }) => {
 
     if (producto) {
       addToCart(producto, 1);
-      // Mostrar mensaje de éxito
-      alert('Producto agregado al carrito');
+      onClose();
     }
   };
 

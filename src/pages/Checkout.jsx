@@ -38,6 +38,7 @@ const Checkout = () => {
     }
 
     fetchDirecciones();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, cart]);
 
   const fetchDirecciones = async () => {
@@ -105,8 +106,9 @@ const Checkout = () => {
 
     try {
       const detalles = cart.map((item) => ({
-        varianteProductoId: item.varianteId,
+        productoId: item.productoId,
         cantidad: item.cantidad,
+        precioUnitario: item.precio,
       }));
 
       const pedidoData = {
@@ -122,7 +124,7 @@ const Checkout = () => {
     } catch (error) {
       setError(
         error.response?.data?.message ||
-          'Error al procesar el pedido. Verifica el stock disponible.'
+          'Error al procesar el pedido. Por favor intenta nuevamente.'
       );
       console.error(error);
     } finally {
@@ -326,7 +328,7 @@ const Checkout = () => {
 
               <div className="summary-items">
                 {cart.map((item) => (
-                  <div key={item.varianteId} className="summary-item">
+                  <div key={item.productoId} className="summary-item">
                     <span>
                       {item.productoNombre} (x{item.cantidad})
                     </span>

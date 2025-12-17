@@ -7,17 +7,21 @@ import './OrderDetail.css';
 const OrderDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [pedido, setPedido] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Scroll hacia arriba al cargar la página
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     if (!isAuthenticated) {
       navigate('/login');
       return;
     }
 
     fetchPedido();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, isAuthenticated]);
 
   const fetchPedido = async () => {

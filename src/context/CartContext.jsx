@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const CartContext = createContext();
@@ -11,30 +12,26 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
-
-  useEffect(() => {
-    // Cargar carrito del localStorage
+  // Inicializar el estado del carrito desde localStorage usando lazy initialization
+  const [cart, setCart] = useState(() => {
     const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      setCart(JSON.parse(storedCart));
-    }
-  }, []);
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
 
   useEffect(() => {
     // Guardar carrito en localStorage cada vez que cambie
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (producto, variante, cantidad = 1) => {
+  const addToCart = (producto, cantidad = 1) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find(
-        (item) => item.varianteId === variante.id
+        (item) => item.productoId === producto.id
       );
 
       if (existingItem) {
         return prevCart.map((item) =>
-          item.varianteId === variante.id
+          item.productoId === producto.id
             ? { ...item, cantidad: item.cantidad + cantidad }
             : item
         );
@@ -45,29 +42,28 @@ export const CartProvider = ({ children }) => {
         {
           productoId: producto.id,
           productoNombre: producto.nombre,
-          varianteId: variante.id,
-          talla: variante.talla,
-          color: variante.color,
-          precio: variante.precioFinal || producto.precioRegular,
+          precio: producto.precioRegular,
           cantidad,
-          imagen: producto.imagenPrincipal || '',
+          imagen: producto.urlImg || '',
+          genero: producto.genero || '',
+          material: producto.material || '',
         },
       ];
     });
   };
 
-  const removeFromCart = (varianteId) => {
-    setCart((prevCart) => prevCart.filter((item) => item.varianteId !== varianteId));
+  const removeFromCart = (productoId) => {
+    setCart((prevCart) => prevCart.filter((item) => item.productoId !== productoId));
   };
 
-  const updateQuantity = (varianteId, cantidad) => {
+  const updateQuantity = (productoId, cantidad) => {
     if (cantidad <= 0) {
-      removeFromCart(varianteId);
+      removeFromCart(productoId);
       return;
     }
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.varianteId === varianteId ? { ...item, cantidad } : item
+        item.productoId === productoId ? { ...item, cantidad } : item
       )
     );
   };

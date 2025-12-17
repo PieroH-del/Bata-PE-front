@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { productosAPI, variantesAPI, imagenesAPI } from '../services/api';
+import { productosAPI } from '../services/api';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { useAuth } from '../context/AuthContext';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
@@ -10,36 +11,24 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const { isAuthenticated } = useAuth();
 
   const [producto, setProducto] = useState(null);
-  const [variantes, setVariantes] = useState([]);
-  const [imagenes, setImagenes] = useState([]);
-  const [selectedVariante, setSelectedVariante] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(0);
   const [cantidad, setCantidad] = useState(1);
   const [loading, setLoading] = useState(true);
   const [mensaje, setMensaje] = useState('');
+  const [showLoginMessage, setShowLoginMessage] = useState(false);
 
   useEffect(() => {
     fetchProducto();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const fetchProducto = async () => {
     setLoading(true);
     try {
-      const [productoRes, variantesRes, imagenesRes] = await Promise.all([
-        productosAPI.getById(id),
-        variantesAPI.getByProducto(id),
-        imagenesAPI.getByProducto(id),
-      ]);
-
+      const productoRes = await productosAPI.getById(id);
       setProducto(productoRes.data);
-      setVariantes(variantesRes.data);
-      setImagenes(imagenesRes.data);
-
-      if (variantesRes.data.length > 0) {
-        setSelectedVariante(variantesRes.data[0]);
-      }
     } catch (error) {
       console.error('Error al cargar producto:', error);
       setMensaje('Error al cargar el producto');
@@ -49,22 +38,15 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    if (!selectedVariante) {
-      setMensaje('Por favor selecciona una variante');
+    if (!isAuthenticated) {
+      setShowLoginMessage(true);
+      setTimeout(() => {
+        navigate('/login?redirect=/producto/' + id);
+      }, 1500);
       return;
     }
 
-    if (selectedVariante.stock < cantidad) {
-      setMensaje('No hay suficiente stock disponible');
-      return;
-    }
-
-    const productoData = {
-      ...producto,
-      imagenPrincipal: imagenes[0]?.urlImagen || '',
-    };
-
-    addToCart(productoData, selectedVariante, cantidad);
+    addToCart(producto, cantidad);
     setMensaje('¡Producto agregado al carrito!');
     
     setTimeout(() => {
@@ -73,6 +55,14 @@ const ProductDetail = () => {
   };
 
   const handleComprarAhora = () => {
+    if (!isAuthenticated) {
+      setShowLoginMessage(true);
+      setTimeout(() => {
+        navigate('/login?redirect=/producto/' + id);
+      }, 1500);
+      return;
+    }
+
     handleAddToCart();
     setTimeout(() => {
       navigate('/carrito');
@@ -84,11 +74,7 @@ const ProductDetail = () => {
       removeFromWishlist(producto.id);
       setMensaje('Producto eliminado de favoritos');
     } else {
-      const productoData = {
-        ...producto,
-        imagenPrincipal: imagenes[0]?.urlImagen || '',
-      };
-      addToWishlist(productoData);
+      addToWishlist(producto);
       setMensaje('¡Producto agregado a favoritos!');
     }
 
@@ -120,6 +106,12 @@ const ProductDetail = () => {
   return (
     <div className="product-detail-page">
       <div className="container py-4">
+        {showLoginMessage && (
+          <div className="alert alert-warning" role="alert">
+            Debes iniciar sesión para agregar productos al carrito. Redirigiendo...
+          </div>
+        )}
+
         {mensaje && (
           <div className="alert alert-success" role="alert">
             {mensaje}
@@ -127,33 +119,19 @@ const ProductDetail = () => {
         )}
 
         <div className="row">
-          {/* Galería de imágenes */}
+          {/* Imagen del producto */}
           <div className="col-md-6">
             <div className="product-gallery">
               <div className="main-image">
-                {imagenes.length > 0 ? (
+                {producto.urlImg ? (
                   <img
-                    src={imagenes[selectedImage]?.urlImagen}
+                    src={producto.urlImg}
                     alt={producto.nombre}
                   />
                 ) : (
                   <div className="no-image">Sin imagen</div>
                 )}
               </div>
-              
-              {imagenes.length > 1 && (
-                <div className="image-thumbnails">
-                  {imagenes.map((img, index) => (
-                    <div
-                      key={img.id}
-                      className={`thumbnail ${selectedImage === index ? 'active' : ''}`}
-                      onClick={() => setSelectedImage(index)}
-                    >
-                      <img src={img.urlImagen} alt={`Vista ${index + 1}`} />
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
           </div>
 
@@ -186,48 +164,6 @@ const ProductDetail = () => {
                 <p>{producto.descripcion}</p>
               </div>
 
-              {/* Selector de variantes */}
-              {variantes.length > 0 && (
-                <div className="variants-section">
-                  <h5>Selecciona talla y color:</h5>
-                  <div className="variants-grid">
-                    {variantes.map((variante) => (
-                      <button
-                        key={variante.id}
-                        className={`variant-btn ${
-                          selectedVariante?.id === variante.id ? 'active' : ''
-                        } ${variante.stock === 0 ? 'out-of-stock' : ''}`}
-                        onClick={() => setSelectedVariante(variante)}
-                        disabled={variante.stock === 0}
-                      >
-                        <div className="variant-info">
-                          <span className="talla">{variante.talla}</span>
-                          <span className="color">{variante.color}</span>
-                        </div>
-                        {variante.stock === 0 ? (
-                          <small>Agotado</small>
-                        ) : (
-                          <small>Stock: {variante.stock}</small>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-
-                  {selectedVariante && (
-                    <div className="selected-variant-info mt-3">
-                      <p>
-                        <strong>Seleccionado:</strong> Talla {selectedVariante.talla} - {selectedVariante.color}
-                      </p>
-                      {selectedVariante.precioFinal && selectedVariante.precioFinal !== producto.precioRegular && (
-                        <p className="variant-price">
-                          Precio: <strong>S/ {selectedVariante.precioFinal.toFixed(2)}</strong>
-                        </p>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
-
               {/* Cantidad */}
               <div className="quantity-section">
                 <label>Cantidad:</label>
@@ -243,11 +179,11 @@ const ProductDetail = () => {
                     value={cantidad}
                     onChange={(e) => setCantidad(Math.max(1, parseInt(e.target.value) || 1))}
                     min="1"
-                    max={selectedVariante?.stock || 99}
+                    max="99"
                   />
                   <button
                     className="qty-btn"
-                    onClick={() => setCantidad(Math.min(selectedVariante?.stock || 99, cantidad + 1))}
+                    onClick={() => setCantidad(Math.min(99, cantidad + 1))}
                   >
                     +
                   </button>
@@ -259,14 +195,12 @@ const ProductDetail = () => {
                 <button
                   className="btn btn-primary btn-lg w-100 mb-2"
                   onClick={handleComprarAhora}
-                  disabled={!selectedVariante || selectedVariante.stock === 0}
                 >
                   Comprar Ahora
                 </button>
                 <button
                   className="btn btn-outline-primary btn-lg w-100"
                   onClick={handleAddToCart}
-                  disabled={!selectedVariante || selectedVariante.stock === 0}
                 >
                   Agregar al Carrito
                 </button>

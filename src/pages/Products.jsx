@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import { productosAPI } from '../services/api';
 import ProductModal from '../components/ProductModal';
 import './Products.css';
 
 const Products = () => {
   const { categoriaId, marcaId, genero } = useParams();
-  const navigate = useNavigate();
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProductId, setSelectedProductId] = useState(null);
 
-  useEffect(() => {
-    fetchProductos();
-  }, [categoriaId, marcaId, genero]);
-
-  const fetchProductos = async () => {
+  const fetchProductos = useCallback(async () => {
     setLoading(true);
     try {
       let response;
@@ -35,7 +30,13 @@ const Products = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [categoriaId, marcaId, genero]);
+
+  useEffect(() => {
+    // Scroll hacia arriba cuando cambian los filtros
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    fetchProductos();
+  }, [fetchProductos]);
 
   const handleProductClick = (id) => {
     console.log('=== PRODUCTO CLICKEADO ===');

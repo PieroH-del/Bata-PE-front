@@ -11,12 +11,16 @@ const Orders = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Scroll hacia arriba al cargar la página
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     if (!isAuthenticated) {
       navigate('/login?redirect=/mis-pedidos');
       return;
     }
 
     fetchPedidos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, user]);
 
   const fetchPedidos = async () => {

@@ -3,14 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { productosAPI } from '../services/api';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { useAuth } from '../context/AuthContext';
 import './ProductModal.css';
 
 const ProductModal = ({ productId, onClose }) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const { addToWishlist, wishlist } = useWishlist();
+  const { isAuthenticated } = useAuth();
   const [producto, setProducto] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showLoginMessage, setShowLoginMessage] = useState(false);
 
   const fetchProducto = async () => {
     console.log('=== FETCH PRODUCTO ===');
@@ -41,14 +44,19 @@ const ProductModal = ({ productId, onClose }) => {
   }, [productId]);
 
   const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      setShowLoginMessage(true);
+      setTimeout(() => {
+        navigate('/login?redirect=/cart');
+        onClose();
+      }, 1500);
+      return;
+    }
+
     if (producto) {
-      addToCart({
-        productoId: producto.id,
-        nombre: producto.nombre,
-        precio: producto.precioRegular,
-        cantidad: 1,
-        imagen: producto.urlImg
-      });
+      addToCart(producto, 1);
+      // Mostrar mensaje de éxito
+      alert('Producto agregado al carrito');
     }
   };
 
@@ -81,6 +89,12 @@ const ProductModal = ({ productId, onClose }) => {
         <button className="modal-close" onClick={onClose}>
           <i className="fas fa-times"></i>
         </button>
+
+        {showLoginMessage && (
+          <div className="alert alert-warning" role="alert">
+            Debes iniciar sesión para agregar productos al carrito. Redirigiendo...
+          </div>
+        )}
 
         {loading ? (
           <div className="modal-loading">

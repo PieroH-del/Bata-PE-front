@@ -61,7 +61,7 @@ const Header = () => {
 
           {/* Logo Center */}
           <Link className="navbar-brand mx-auto position-absolute start-50 translate-middle-x" to="/">
-            <img src="https://www.bata.com/v-bata-peru-live/statics/images/bata-logo.svg" alt="Bata" className="logo" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Bata.svg/2560px-Bata.svg.png" alt="Bata" className="logo" />
           </Link>
 
           {/* Right Icons */}

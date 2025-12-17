@@ -1,0 +1,56 @@
+.brand-carousel {
+  background-color: #fff;
+}
+
+.brand-card {
+  position: relative;
+  overflow: hidden;
+  height: 400px;
+  cursor: pointer;
+}
+
+.brand-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.brand-card:hover .brand-image {
+  transform: scale(1.1);
+}
+
+.brand-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  transition: background 0.3s;
+}
+
+.brand-card:hover .brand-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.brand-name {
+  color: #fff;
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 768px) {
+  .brand-card {
+    height: 300px;
+  }
+
+  .brand-name {
+    font-size: 2rem;
+  }
+}

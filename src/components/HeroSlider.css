@@ -1,0 +1,55 @@
+.hero-slide {
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hero-slide-1 {
+  background: linear-gradient(rgba(220, 200, 180, 0.9), rgba(220, 200, 180, 0.9)), 
+              url('https://via.placeholder.com/1920x600');
+}
+
+.hero-slide-2 {
+  background: linear-gradient(rgba(200, 180, 160, 0.9), rgba(200, 180, 160, 0.9)), 
+              url('https://via.placeholder.com/1920x600');
+}
+
+.hero-brand-logo {
+  max-width: 250px;
+  filter: brightness(0);
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a3a5c;
+  letter-spacing: 2px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.btn-hero {
+  background-color: transparent;
+  color: #333;
+  border: 2px solid #333;
+  padding: 12px 40px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+}
+
+.btn-hero:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .hero-slide {
+    height: 400px;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+}

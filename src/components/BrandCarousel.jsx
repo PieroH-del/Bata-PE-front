@@ -3,9 +3,9 @@ import './BrandCarousel.css';
 
 const BrandCarousel = () => {
   const brands = [
-    { name: 'NORTH STAR', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxTivgTtN5DTzTfoYRHEGEJKFTgKu4Grv-qg&s' },
-    { name: 'POWER', image: 'https://via.placeholder.com/400x300' },
-    { name: 'WEINBRENNER', image: 'https://via.placeholder.com/400x300' }
+    { name: 'NORTH STAR', image: 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&q=80' },
+    { name: 'POWER', image: 'https://images.unsplash.com/photo-1539185441755-769473a23570?w=400&q=80' },
+    { name: 'WEINBRENNER', image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&q=80' }
   ];
 
   return (

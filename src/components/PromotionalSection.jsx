@@ -9,7 +9,7 @@ const PromotionalSection = () => {
           {/* Mujer */}
           <div className="col-md-4">
             <div className="promo-card">
-              <img src="https://via.placeholder.com/600x800" alt="Mujer" className="promo-image" />
+              <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&q=80" alt="Mujer" className="promo-image" />
               <div className="promo-overlay">
                 <span className="promo-badge">GRATI DAYS</span>
                 <h2 className="promo-title">MUJER HASTA 50%</h2>
@@ -25,7 +25,7 @@ const PromotionalSection = () => {
           {/* Hombre */}
           <div className="col-md-4">
             <div className="promo-card">
-              <img src="https://via.placeholder.com/600x800" alt="Hombre" className="promo-image" />
+              <img src="https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=600&q=80" alt="Hombre" className="promo-image" />
               <div className="promo-overlay">
                 <span className="promo-badge">GRATI DAYS</span>
                 <h2 className="promo-title">HOMBRE HASTA 50%</h2>
@@ -41,7 +41,7 @@ const PromotionalSection = () => {
           {/* Infantil */}
           <div className="col-md-4">
             <div className="promo-card">
-              <img src="https://via.placeholder.com/600x800" alt="Infantil" className="promo-image" />
+              <img src="https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=600&q=80" alt="Infantil" className="promo-image" />
               <div className="promo-overlay">
                 <span className="promo-badge">GRATI DAYS</span>
                 <h2 className="promo-title">INFANTIL HASTA 50%</h2>

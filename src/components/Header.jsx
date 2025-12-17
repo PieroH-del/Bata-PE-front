@@ -25,10 +25,10 @@ const Header = () => {
       <div className="brand-banner">
         <div className="container-fluid">
           <div className="d-flex justify-content-around align-items-center py-2">
-            <img src="https://via.placeholder.com/120x40?text=WEINBRENNER" alt="Weinbrenner" className="brand-logo" />
-            <img src="https://via.placeholder.com/120x40?text=NORTH+STAR" alt="North Star" className="brand-logo" />
-            <img src="https://via.placeholder.com/120x40?text=POWER" alt="Power" className="brand-logo" />
-            <img src="https://via.placeholder.com/120x40?text=BUBBLE+GUMMERS" alt="Bubble Gummers" className="brand-logo" />
+            <img src="https://www.bata.com/v-bata-peru-live/statics/images/weinbrenner-logo.svg" alt="Weinbrenner" className="brand-logo" />
+            <img src="https://www.bata.com/v-bata-peru-live/statics/images/north-star-logo.svg" alt="North Star" className="brand-logo" />
+            <img src="https.www.bata.com/v-bata-peru-live/statics/images/power-logo.svg" alt="Power" className="brand-logo" />
+            <img src="https://www.bata.com/v-bata-peru-live/statics/images/bubblegummers-logo.svg" alt="Bubble Gummers" className="brand-logo" />
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@ const Header = () => {
 
           {/* Logo Center */}
           <Link className="navbar-brand mx-auto position-absolute start-50 translate-middle-x" to="/">
-            <img src="https://via.placeholder.com/120x50?text=Bata" alt="Bata" className="logo" />
+            <img src="https://www.bata.com/v-bata-peru-live/statics/images/bata-logo.svg" alt="Bata" className="logo" />
           </Link>
 
           {/* Right Icons */}

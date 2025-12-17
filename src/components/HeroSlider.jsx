@@ -16,8 +16,8 @@ const HeroSlider = () => {
             <div className="container h-100">
               <div className="row h-100 align-items-center">
                 <div className="col-12 text-center">
-                  <img src="https://via.placeholder.com/200x80?text=POWER" alt="Power" className="hero-brand-logo mb-3" />
-                  <h2 className="hero-title">REGALA MOVIMIENTO, REGALA POWER.</h2>
+                  
+                  <h2 className="hero-title" style={{color: 'white'}}>REGALA MOVIMIENTO, REGALA POWER.</h2>
                   <button className="btn btn-hero mt-3">COMPRA AHORA</button>
                 </div>
               </div>
@@ -31,7 +31,7 @@ const HeroSlider = () => {
             <div className="container h-100">
               <div className="row h-100 align-items-center">
                 <div className="col-12 text-center">
-                  <h2 className="hero-title">Nueva Colección</h2>
+                  <h2 className="hero-title" style={{color: 'white'}}>Nueva Colección</h2>
                   <button className="btn btn-hero mt-3">DESCUBRE MÁS</button>
                 </div>
               </div>

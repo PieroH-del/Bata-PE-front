@@ -3,10 +3,10 @@ import './CategorySection.css';
 
 const CategorySection = () => {
   const categories = [
-    { name: 'SANDALIAS', image: 'https://via.placeholder.com/400x400' },
-    { name: 'ACCESORIOS', image: 'https://via.placeholder.com/400x400' },
-    { name: 'SNEAKERS', image: 'https://via.placeholder.com/400x400' },
-    { name: 'DEPORTIVOS', image: 'https://via.placeholder.com/400x400' }
+    { name: 'SANDALIAS', image: 'https://images.unsplash.com/photo-1603487742131-4160ec999306?w=400&q=80' },
+    { name: 'ACCESORIOS', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80' },
+    { name: 'SNEAKERS', image: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=400&q=80' },
+    { name: 'DEPORTIVOS', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80' }
   ];
 
   return (

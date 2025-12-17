@@ -593,23 +593,19 @@ Las contribuciones son bienvenidas. Por favor:
 
 ---
 
-## 📝 Licencia
-
-Este proyecto es de código abierto y está disponible bajo la [MIT License](LICENSE).
-
----
-
 ## 👥 Autores
 
-- **Piero H. del** - [GitHub](https://github.com/PieroH-del)
+- **Blanca Cancheros**
+- **Ismael Galvez**
+- **Miguel Sanchez**
+- **Daniel Rodriguez**
+- **Piero Leon**
 
 ---
 
 ## 🙏 Agradecimientos
 
-- Inspirado en [Bata Perú](https://www.bata.com.pe/)
-- Iconos de [React Icons](https://react-icons.github.io/react-icons/)
-- Imágenes de productos de Bata
+- Idat
 
 ---
 
